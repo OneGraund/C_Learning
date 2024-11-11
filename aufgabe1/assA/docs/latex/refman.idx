@@ -1,0 +1,14 @@
+\indexentry{mygrep.c@{mygrep.c}|hyperpage}{3}
+\indexentry{mygrep.c@{mygrep.c}!main@{main}|hyperpage}{4}
+\indexentry{main@{main}!mygrep.c@{mygrep.c}|hyperpage}{4}
+\indexentry{mygrep.c@{mygrep.c}!readFile\_andSearch@{readFile\_andSearch}|hyperpage}{4}
+\indexentry{readFile\_andSearch@{readFile\_andSearch}!mygrep.c@{mygrep.c}|hyperpage}{4}
+\indexentry{mygrep.c@{mygrep.c}!usage@{usage}|hyperpage}{4}
+\indexentry{usage@{usage}!mygrep.c@{mygrep.c}|hyperpage}{4}
+\indexentry{mygrep.c@{mygrep.c}!writeLine\_toFile@{writeLine\_toFile}|hyperpage}{5}
+\indexentry{writeLine\_toFile@{writeLine\_toFile}!mygrep.c@{mygrep.c}|hyperpage}{5}
+\indexentry{mygrep.h@{mygrep.h}|hyperpage}{5}
+\indexentry{mygrep.h@{mygrep.h}!readFile\_andSearch@{readFile\_andSearch}|hyperpage}{6}
+\indexentry{readFile\_andSearch@{readFile\_andSearch}!mygrep.h@{mygrep.h}|hyperpage}{6}
+\indexentry{mygrep.h@{mygrep.h}!writeLine\_toFile@{writeLine\_toFile}|hyperpage}{6}
+\indexentry{writeLine\_toFile@{writeLine\_toFile}!mygrep.h@{mygrep.h}|hyperpage}{6}

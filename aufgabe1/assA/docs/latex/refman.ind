@@ -1,0 +1,31 @@
+\begin{theindex}
+
+  \item {main}
+    \subitem {mygrep.c}, \hyperpage{4}
+  \item {mygrep.c}, \hyperpage{3}
+    \subitem {main}, \hyperpage{4}
+    \subitem {readFile\_andSearch}, \hyperpage{4}
+    \subitem {usage}, \hyperpage{4}
+    \subitem {writeLine\_toFile}, \hyperpage{5}
+  \item {mygrep.h}, \hyperpage{5}
+    \subitem {readFile\_andSearch}, \hyperpage{6}
+    \subitem {writeLine\_toFile}, \hyperpage{6}
+
+  \indexspace
+
+  \item {readFile\_andSearch}
+    \subitem {mygrep.c}, \hyperpage{4}
+    \subitem {mygrep.h}, \hyperpage{6}
+
+  \indexspace
+
+  \item {usage}
+    \subitem {mygrep.c}, \hyperpage{4}
+
+  \indexspace
+
+  \item {writeLine\_toFile}
+    \subitem {mygrep.c}, \hyperpage{5}
+    \subitem {mygrep.h}, \hyperpage{6}
+
+\end{theindex}

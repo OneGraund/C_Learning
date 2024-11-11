@@ -1,0 +1,131 @@
+\doxysection{mygrep.\+c File Reference}
+\hypertarget{mygrep_8c}{}\label{mygrep_8c}\index{mygrep.c@{mygrep.c}}
+
+
+This file implements a custom grep utility for searching keywords in files/stdin.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{mygrep_8c_afa460fe6ab86bc6749eb9e65632d8606}{read\+File\+\_\+and\+Search}} (FILE \texorpdfstring{$\ast$}{*}file, char \texorpdfstring{$\ast$}{*}keyword, const char \texorpdfstring{$\ast$}{*}outfile, int i\+\_\+arg)
+\begin{DoxyCompactList}\small\item\em reads file and searches keyword \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{mygrep_8c_a28fabc0b73e9f796c43994dced446afa}{write\+Line\+\_\+to\+File}} (const char \texorpdfstring{$\ast$}{*}path, char \texorpdfstring{$\ast$}{*}line)
+\begin{DoxyCompactList}\small\item\em appends file with line \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mygrep_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}{usage}} (void)
+\begin{DoxyCompactList}\small\item\em Prints the usage information for the mygrep utility. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{mygrep_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file implements a custom grep utility for searching keywords in files/stdin. 
+
+This utility makes a line-\/by-\/line search for a specified by user keyword either case-\/sensitive or insesitive in multiple/signle files or from stdin stream
+
+@synopsis mygrep \mbox{[}-\/i\mbox{]} \mbox{[}-\/o outfile\mbox{]} keyword \mbox{[}file...\mbox{]}
+
+
+\begin{DoxyParams}{Parameters}
+{\em -\/i} & Perform a case-\/insensitive search. \\
+\hline
+{\em -\/o} & Specify an output file to save search results \\
+\hline
+{\em keyword} & The keyword to search for in each line of the files/stdin \\
+\hline
+{\em file} & One or more files to search. If omitted, reads from stdin stream\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Volodymyr Skoryi 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/11-\/08 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mygrep_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{mygrep_8c_a0ddf1224851353fc92bfbff6f499fa97} 
+\index{mygrep.c@{mygrep.c}!main@{main}}
+\index{main@{main}!mygrep.c@{mygrep.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char \texorpdfstring{$\ast$}{*}}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+\Hypertarget{mygrep_8c_afa460fe6ab86bc6749eb9e65632d8606}\label{mygrep_8c_afa460fe6ab86bc6749eb9e65632d8606} 
+\index{mygrep.c@{mygrep.c}!readFile\_andSearch@{readFile\_andSearch}}
+\index{readFile\_andSearch@{readFile\_andSearch}!mygrep.c@{mygrep.c}}
+\doxysubsubsection{\texorpdfstring{readFile\_andSearch()}{readFile\_andSearch()}}
+{\footnotesize\ttfamily void read\+File\+\_\+and\+Search (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{file,  }\item[{char \texorpdfstring{$\ast$}{*}}]{keyword,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{outfile,  }\item[{int}]{i\+\_\+arg }\end{DoxyParamCaption})}
+
+
+
+reads file and searches keyword 
+
+This module takes a file, searches (case sensitivity may be specified) for a keyword in each line and in case an outfile was specified is going to append it with the line containing the keyword
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & the FILE datatype pointer that is going to be read. \\
+\hline
+{\em keyword} & keyword that is going to be searched in each line of the "{}\texorpdfstring{$\ast$}{*}file"{}. \\
+\hline
+{\em outfile} & file path to an output file that is going to contain search result. if not specified (or set to NULL) will outoput to stdout. \\
+\hline
+{\em i\+\_\+arg} & practically should be a boolean value that if set to 1 will make a case insensitive search (no matter if upper case or lower case).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Volodymyr Skoryi 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/11-\/08
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\Hypertarget{mygrep_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a}\label{mygrep_8c_ae8605e2b78cd4a81b6c6b5c30cb7366a} 
+\index{mygrep.c@{mygrep.c}!usage@{usage}}
+\index{usage@{usage}!mygrep.c@{mygrep.c}}
+\doxysubsubsection{\texorpdfstring{usage()}{usage()}}
+{\footnotesize\ttfamily void usage (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Prints the usage information for the mygrep utility. 
+
+This function outputs a synopsis of the command-\/line arguments and options for the utility to stderr stream, then exits the program with a failure code EXIT\+\_\+\+FAILURE.
+
+\begin{DoxyAuthor}{Author}
+Volodymyr Skoryi 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/11-\/08 
+\end{DoxyDate}
+\Hypertarget{mygrep_8c_a28fabc0b73e9f796c43994dced446afa}\label{mygrep_8c_a28fabc0b73e9f796c43994dced446afa} 
+\index{mygrep.c@{mygrep.c}!writeLine\_toFile@{writeLine\_toFile}}
+\index{writeLine\_toFile@{writeLine\_toFile}!mygrep.c@{mygrep.c}}
+\doxysubsubsection{\texorpdfstring{writeLine\_toFile()}{writeLine\_toFile()}}
+{\footnotesize\ttfamily int write\+Line\+\_\+to\+File (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{char \texorpdfstring{$\ast$}{*}}]{line }\end{DoxyParamCaption})}
+
+
+
+appends file with line 
+
+this module takes as input a path to the output file, after which it appends it with a string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & is the path to the output file (where line is appended) \\
+\hline
+{\em line} & is the line itself that is going to be appended to the file\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Volodymyr Skoryi 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/11-\/08
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+int either 1 or 0. 1 for successful execution, 0 for an error 
+\end{DoxyReturn}

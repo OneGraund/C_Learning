@@ -1,0 +1,72 @@
+\doxysection{mygrep.\+h File Reference}
+\hypertarget{mygrep_8h}{}\label{mygrep_8h}\index{mygrep.h@{mygrep.h}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{mygrep_8h_afa460fe6ab86bc6749eb9e65632d8606}{read\+File\+\_\+and\+Search}} (FILE \texorpdfstring{$\ast$}{*}file, char \texorpdfstring{$\ast$}{*}keyword, const char \texorpdfstring{$\ast$}{*}outfile, int i\+\_\+arg)
+\begin{DoxyCompactList}\small\item\em reads file and searches keyword \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{mygrep_8h_a28fabc0b73e9f796c43994dced446afa}{write\+Line\+\_\+to\+File}} (const char \texorpdfstring{$\ast$}{*}path, char \texorpdfstring{$\ast$}{*}line)
+\begin{DoxyCompactList}\small\item\em appends file with line \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{mygrep_8h_afa460fe6ab86bc6749eb9e65632d8606}\label{mygrep_8h_afa460fe6ab86bc6749eb9e65632d8606} 
+\index{mygrep.h@{mygrep.h}!readFile\_andSearch@{readFile\_andSearch}}
+\index{readFile\_andSearch@{readFile\_andSearch}!mygrep.h@{mygrep.h}}
+\doxysubsubsection{\texorpdfstring{readFile\_andSearch()}{readFile\_andSearch()}}
+{\footnotesize\ttfamily void read\+File\+\_\+and\+Search (\begin{DoxyParamCaption}\item[{FILE \texorpdfstring{$\ast$}{*}}]{file,  }\item[{char \texorpdfstring{$\ast$}{*}}]{keyword,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{outfile,  }\item[{int}]{i\+\_\+arg }\end{DoxyParamCaption})}
+
+
+
+reads file and searches keyword 
+
+This module takes a file, searches (case sensitivity may be specified) for a keyword in each line and in case an outfile was specified is going to append it with the line containing the keyword
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & the FILE datatype pointer that is going to be read. \\
+\hline
+{\em keyword} & keyword that is going to be searched in each line of the "{}\texorpdfstring{$\ast$}{*}file"{}. \\
+\hline
+{\em outfile} & file path to an output file that is going to contain search result. if not specified (or set to NULL) will outoput to stdout. \\
+\hline
+{\em i\+\_\+arg} & practically should be a boolean value that if set to 1 will make a case insensitive search (no matter if upper case or lower case).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Volodymyr Skoryi 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/11-\/08
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\Hypertarget{mygrep_8h_a28fabc0b73e9f796c43994dced446afa}\label{mygrep_8h_a28fabc0b73e9f796c43994dced446afa} 
+\index{mygrep.h@{mygrep.h}!writeLine\_toFile@{writeLine\_toFile}}
+\index{writeLine\_toFile@{writeLine\_toFile}!mygrep.h@{mygrep.h}}
+\doxysubsubsection{\texorpdfstring{writeLine\_toFile()}{writeLine\_toFile()}}
+{\footnotesize\ttfamily int write\+Line\+\_\+to\+File (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path,  }\item[{char \texorpdfstring{$\ast$}{*}}]{line }\end{DoxyParamCaption})}
+
+
+
+appends file with line 
+
+this module takes as input a path to the output file, after which it appends it with a string.
+
+
+\begin{DoxyParams}{Parameters}
+{\em path} & is the path to the output file (where line is appended) \\
+\hline
+{\em line} & is the line itself that is going to be appended to the file\\
+\hline
+\end{DoxyParams}
+\begin{DoxyAuthor}{Author}
+Volodymyr Skoryi 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2024-\/11-\/08
+\end{DoxyDate}
+\begin{DoxyReturn}{Returns}
+int either 1 or 0. 1 for successful execution, 0 for an error 
+\end{DoxyReturn}
