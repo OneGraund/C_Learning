@@ -25,6 +25,7 @@ docs:
 
 clean:
 	rm -rf *.o writer reader
+	clear
 
 push:
 	git add .
