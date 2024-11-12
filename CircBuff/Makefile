@@ -1,17 +1,17 @@
 
 .PHONY: all 
 
-all: clean push compile
+all: clean compile
 
 compile: writer.o reader.o
 	gcc -o writer writer.o
 	gcc -o reader reader.o
 
 reader.o: reader.c circular_buffer.h
-	gcc -std=c99 -g -pedantic -Wall -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_POSIX_C_SOURCE=200809L -c reader.c -o reader.o
+	gcc -std=c99 -g -DDEBUG -Wno-format -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_POSIX_C_SOURCE=200809L -o reader.o -c reader.c
 
 writer.o: writer.c circular_buffer.h 
-	gcc -std=c99 -pedantic -Wall -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_POSIX_C_SOURCE=200809L -c writer.c -o writer.o
+	gcc -std=c99 -g -DDEBUG -Wno-format -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_POSIX_C_SOURCE=200809L -o writer.o -c writer.c 
 
 
 docs:
