@@ -36,17 +36,25 @@ void print_semaphore_value(sem_t *sem) {
 }
 
 int read_value(SharedBuffer *shared_buffer, sem_t *res_free, sem_t *used) {
+	if (shared_buffer == NULL) {
+		debug("Can't continue reading value because shared_buffer is NULL!!!");
+		error_handle();
+	}
+
 	debug("Waiting used semaphore");
 	print_semaphore_value(used);
 	if (sem_wait(used) == -1) error_handle();
 	/* The reader process will wait on the used semaphore before reading.
 	   If used is 0, it means there is no data availabe to read, so the
 	   reader will block until there is data */
+
+    debug("### ENTERED CRITICAL SECTION ###");
 	int val = shared_buffer->buf[shared_buffer->rd_pos];
 	shared_buffer->rd_pos = (shared_buffer->rd_pos + 1) % BUF_LEN;
 	debug("Posting free semaphore");
 	print_semaphore_value(res_free);
 	if (sem_post(res_free) == -1) error_handle();
+	debug("### LEFT CRITICAL SECTION ###");
 	debug("Free semaphore after posting:"); print_semaphore_value(res_free);
 	return val;
 }
@@ -66,18 +74,23 @@ void free_resources(void) {
 
 int main(void) {
 	debug("Opening SHARED_MEM_NAME %s\n", SHARED_MEM_NAME);
-	int shm_fd = shm_open(SHARED_MEM_NAME, O_RDONLY, 0666);
+	int shm_fd = shm_open(SHARED_MEM_NAME, O_RDWR, 0666);
 	if (shm_fd == -1) error_handle();
 
 	debug("Mapping shared memory", NULL);
-	SharedBuffer *shared_buffer = mmap(0, sizeof(SharedBuffer), PROT_READ, MAP_SHARED, \
-		shm_fd, 0);
+	SharedBuffer *shared_buffer = mmap(0, sizeof(SharedBuffer), PROT_READ | PROT_WRITE, \
+    	 MAP_SHARED, shm_fd, 0);
 	if (shared_buffer == MAP_FAILED) error_handle();
 
 	debug("Opening semaphores");
 	sem_t *res_free = sem_open(SEMAPHORE_FREE_NAME, 0);
 	sem_t *used = sem_open(SEMAPHORE_USED_NAME, 0);
-	if (res_free == SEM_FAILED) {
+
+	debug("Created sempahores data:");
+	printf("\tRes_free semaphore: "); print_semaphore_value(res_free);
+	printf("\tUsed semaphore: "); print_semaphore_value(used);
+
+	if (res_free == SEM_FAILED || used == SEM_FAILED) {
 		debug("res_free: %d, used: %d", res_free, used);
 		error_handle();
 	}
@@ -94,6 +107,9 @@ int main(void) {
 	sigaction(SIGINT, &sa, NULL);
 
 	debug("Starting reader cycle");
+
+	shared_buffer->rd_pos = (shared_buffer->rd_pos + 1) % BUF_LEN;
+
 	for (int i=0; i<10; i++) {
 		int val = read_value(shared_buffer, res_free, used);
 		printf("Reader: Read %d from buffer\n", val);

@@ -42,11 +42,15 @@ void write_value(SharedBuffer *shared_buffer, sem_t *res_free, sem_t *used, int 
 	/* If res_free reaches 0, it means the buffer is full, and any additional
 	   attempt by the writer to sem_wait(res_free) will block until a reader
 	   res_frees up a slot by reading a value and calling sem_post(res_free) */
+
+	debug("### ENTERED CRITICAL SECTION ###");
     debug("Writing value to position %d", shared_buffer->wr_pos);
 	shared_buffer->buf[shared_buffer->wr_pos] = val;
 	shared_buffer->wr_pos = (shared_buffer->wr_pos + 1) % BUF_LEN;
 	debug("Incremented position to %d and posting used", shared_buffer->wr_pos);
 	if (sem_post(used) == -1) error_handle();
+
+	debug("### CRITICAL SECTION LEFT ###");
 	printf("res_free semaphore: "); print_semaphore_value(res_free);
 	printf("used semaphore: "); print_semaphore_value(used);
 }
