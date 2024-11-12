@@ -1,7 +1,7 @@
 
 .PHONY: all 
 
-all: clean compile push
+all: clean push compile
 
 compile: writer.o reader.o
 	gcc -o writer writer.o
