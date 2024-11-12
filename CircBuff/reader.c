@@ -108,7 +108,7 @@ int main(void) {
 
 	debug("Starting reader cycle");
 
-	for (int i=0; i<10; i++) {
+	for (int i=0; i<19; i++) {
 		int val = read_value(shared_buffer, res_free, used);
 		printf("Reader: Read %d from buffer\n", val);
 		sleep(1);

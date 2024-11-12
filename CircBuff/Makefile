@@ -8,10 +8,10 @@ compile: writer.o reader.o
 	gcc -o reader reader.o
 
 reader.o: reader.c circular_buffer.h
-	gcc -std=c99 -g -DDEBUG -Wno-format -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_POSIX_C_SOURCE=200809L -o reader.o -c reader.c
+	gcc -std=c99 -g -Wno-format -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_POSIX_C_SOURCE=200809L -o reader.o -c reader.c
 
 writer.o: writer.c circular_buffer.h 
-	gcc -std=c99 -g -DDEBUG -Wno-format -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_POSIX_C_SOURCE=200809L -o writer.o -c writer.c 
+	gcc -std=c99 -g -Wno-format -D_DEFAULT_SOURCE -D_BSD_SOURCE -D_SVID_SOURCE -D_POSIX_C_SOURCE=200809L -o writer.o -c writer.c 
 
 
 docs:
