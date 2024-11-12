@@ -1,7 +1,7 @@
 
 .PHONY: all 
 
-all: compile 
+all: clean compile push
 
 compile: writer.o reader.o
 	gcc -o writer writer.o
@@ -26,3 +26,7 @@ docs:
 clean:
 	rm -rf *.o writer reader
 
+push:
+	git add .
+	git commit -m "make push commit"
+	git push -u origin main

@@ -28,9 +28,9 @@ void write_value(SharedBuffer *shared_buffer, sem_t *free, sem_t *used, int val)
 int main(int argc, char **argv) {
 
 	// Set up shared memory for the circ buff
-	int shm_fd = shm_open("/shared_circular_buffer", O_CREAT | O_RDWR, 0666);
+	int shm_fd = shm_open(SHARED_MEM_NAME, O_CREAT | O_RDWR, 0666);
 	if (shm_fd == -1) error_handle();
-	
+
 	if (ftruncate(shm_fd, sizeof(SharedBuffer)) < 0) error_handle();
 	SharedBuffer *shared_buffer = mmap(0, sizeof(SharedBuffer), PROT_READ | PROT_WRITE, \
 		MAP_SHARED, shm_fd, 0);

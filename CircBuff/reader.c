@@ -26,6 +26,7 @@ int read_value(SharedBuffer *shared_buffer, sem_t *free, sem_t *used) {
 
 
 int main(void) {
+	printf("Opening %s sharede mem file", SHARED_MEM_NAME);
 	int shm_fd = shm_open(SHARED_MEM_NAME, O_RDONLY, 0666);
 	if (shm_fd == -1) error_handle();
 
