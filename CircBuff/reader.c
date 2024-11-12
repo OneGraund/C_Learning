@@ -108,8 +108,6 @@ int main(void) {
 
 	debug("Starting reader cycle");
 
-	shared_buffer->rd_pos = (shared_buffer->rd_pos + 1) % BUF_LEN;
-
 	for (int i=0; i<10; i++) {
 		int val = read_value(shared_buffer, res_free, used);
 		printf("Reader: Read %d from buffer\n", val);
