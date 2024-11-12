@@ -50,9 +50,10 @@
 #endif
 
 #define SHM_NAME "/supervisor_generator_shm"
+#define SEMAPHORE_NAME "/supervisor_generator_semaphore"
 #define MAX_DATA (4096)
 
-typedef struct shm {
+typedef struct {
 	unsigned int state;
 	unsigned int data[MAX_DATA];
 } shm_t;
@@ -123,9 +124,15 @@ int main(int argc, char* argv[]) {
 	debug("Arguments that will be used: limit - %lu, delay - %d", lim, delay);
 
 	// Set up the shared memory and the semaphores
-	debug("Setting up the shared memory and the semaphores");
+	debug("Setting up the shared memory");
 	int shared_memory = create_shared_memory();
 	shm_t* memory_mapping = map_shared_memory(shared_memory);
+	debug("Setting up semaphores");
+
+	
+
+	
+	memory_mapping->data[0];
 
 		// Set up a variable, which is checked by generator processes (to terminate)
 	// Initialize the circular buffer required for the communication with the generators
