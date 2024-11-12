@@ -27,7 +27,7 @@ clean:
 	rm -rf *.o writer reader
 	clear
 
-push:
+push: clean
 	git add .
 	git commit -m "make push commit"
 	git push -u origin main
