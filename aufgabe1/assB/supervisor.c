@@ -18,7 +18,7 @@
  * @date 08.11.2024
  */
 
-
+#include "header.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <sys/mman.h>
@@ -64,7 +64,6 @@ void terminate_generators(const char *message);
 int create_shared_memory(void);
 shm_t* map_shared_memory(int shmfd);
 void release_shared_memory(shm_t *shm);
-bool is_string_numeric(const char *str);
 
 
 /**
@@ -150,23 +149,6 @@ int main(int argc, char* argv[]) {
 		// Print to stdout -> The graph is 3-colorable!
 		// Exit
 	return 0;
-}
-
-
-/**
- * @brief Checks if a string is numeric.
- */
-bool is_string_numeric(const char *str) {
-	if (*str == '\0')
-		return false;
-
-	while (*str) {
-		if (!isdigit((unsigned char) *str))
-			return false;
-		str++;
-	}
-
-	return true;
 }
 
 
