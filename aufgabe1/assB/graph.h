@@ -29,4 +29,9 @@ void get_adjacent_nodes_of_similar_color(Graph *graph, int node, int to_return[]
 
 void remove_edge_between(Graph *graph, int node1, int node2);
 
+// I don't really know why, but it won't print if graph itself is sent
+void print_adjacency_matrix(Graph *graph);
+
+int define_graph_size_by_edges(enum connection edges[MAX_GRAPH_SIZE][MAX_GRAPH_SIZE]);
+
 #endif

@@ -41,17 +41,6 @@ void construct_edges_from_str(char *in_str,
 	int space;
 	int i = 0;
 
-/*	char *str = malloc((int) strlen(str) + 2);
-	if (str == NULL) {
-		debug("Memory allocation for input string with ' ' in the beginning failed");
-		free(str);
-		free_unique_nodes();
-		return;
-	}
-	str[0] = ' ';
-	strcpy(str + 1, in_str);
-	str[strlen(in_str)+1] = '\0';  */
-
 	char str[strlen(in_str) + 2];
 	str[0] = ' ';
 	for (int i = 0; i < strlen(in_str); i++)
@@ -109,8 +98,7 @@ void construct_edges_from_str(char *in_str,
 				edges[i][j] = NOT_CONNECTED;
 		}
 	}
-	
-	//free(str);
+
 	free_unique_nodes();
 }
 
@@ -120,6 +108,8 @@ void create_graph(Graph *graph, int size, enum connection edges[MAX_GRAPH_SIZE][
 			(size - MAX_GRAPH_SIZE + 1));
 		return;
 	}
+
+	memcpy(graph->edges, edges, MAX_GRAPH_SIZE * MAX_GRAPH_SIZE * sizeof(enum connection));
 	memcpy(graph->edges, edges, size * size * sizeof(enum connection));
 	for (int i = 0; i < size; i++)
 		(graph->colors)[i] = NO_COLOR;
@@ -178,26 +168,57 @@ void get_adjacent_nodes_of_similar_color(Graph *graph, int node, int to_return[]
 	}
 
 	for (int i = 0; i < graph->size; i++) {
-		if (graph->edges[node][i] == CONNECTED && graph->colors[node] == graph->colors[i]) {
-			to_return[*found_count] = i;
-			(*found_count++);
+		if (graph->edges[node][i] == CONNECTED) {
+			if (graph->colors[node] == graph->colors[i]) {
+				to_return[*found_count] = i;
+				(*found_count)++;
+			} else {
+				// debug("Node %d is connected with node %d, but they are not of the similar color", node, i);
+				// debug("Node %d color: %d, node %d color: %d", node, graph->colors[node], i, graph->colors[i]);
+			}
 		}
 	}
 }
 
 
-#ifdef TEST
-void test_graph(char *str) {
-	printf("Input graph: %s\n", str);
+void remove_edge_between(Graph *graph, int node1, int node2) {
+	if (node1 >= graph->size || node2 >= graph-> size) {
+		debug("[REMOVE_EDGES_BETWEEN] either node1 or node2 are out of graph size bounds. Info: node1: %d, " \
+				"node2: %d", node1, node2);
+		return;
+	}
 
-	enum connection edges[MAX_GRAPH_SIZE][MAX_GRAPH_SIZE];
-	construct_edges_from_str(str, edges);
+	if (graph->edges[node1][node2] == UNDEFINED || graph->edges[node1][node2] == NOT_CONNECTED) {
+		debug("[REMOVE_EDGES_BETWEEN] Either connection between node1 and node2 is undefined or they are " \
+				"already DISCONNECTED. Connection: %d", graph->edges[node1][node2]);
+		return;
+	} else {
+		if (graph->edges[node1][node2] != graph->edges[node2][node1]) {
+			debug("[REMOVE_EDGES_BETWEEN] Connection between node1 and node2 is not symmetrical!!! Info: n1" \
+					"-n2 %d, n2-n1: %d", graph->edges[node1][node2], graph->edges[node2][node1]);
+			return;
+		} else {
+			if (graph->edges[node1][node2] == CONNECTED) { // sanity check
+				debug("[REMOVE_EDGES_BETWEEN] ALL good! Removing connection between node %d and node %d", node1, node2);
+				graph->edges[node1][node2] = NOT_CONNECTED;
+				graph->edges[node2][node1] = NOT_CONNECTED;
+				return;
+			} else {
+				debug("[REMOVE_EDGES_BETWEEN] SANITY CHECK FAILED!!!!! Something with this function is definately wrong");
+				return;
+			}
+		}
+	}
 
-	int size = 0;
-	while (size < MAX_GRAPH_SIZE) {
-		if (edges[0][size] == UNDEFINED)
-			break;
-		size++;
+	debug("[REMOVE_EDGES_BETWEEN] UNREACHABLE CODE!!! This line should not be executed!!!");
+}
+
+void print_adjacency_matrix(Graph *graph) {
+
+	int size = graph->size;
+	if (size <= 0) {
+		debug("Graph does not have a defined size or it is an empty graph");
+		return;
 	}
 
 	debug("Matrix representation of edges:");
@@ -211,16 +232,41 @@ void test_graph(char *str) {
 	for (int i = 0; i < size; i++) {
 		printf("%d ", i);
 		for (int j = 0; j < size; j++) {
-			if (edges[i][j] == 1)
-				printf("O ");
-			else if (edges[i][j] == 2)
-				printf("X ");
+			if (graph->edges[i][j] == 1)
+				fprintf(stdout, "O ");
+			else if (graph->edges[i][j] == 2)
+				fprintf(stdout, "X ");
 		} printf("\n");
 	}
+
+}
+
+int define_graph_size_by_edges(enum connection edges[MAX_GRAPH_SIZE][MAX_GRAPH_SIZE]) {
+	int size = 0;
+	while (size < MAX_GRAPH_SIZE) {
+		if (edges[0][size] == UNDEFINED)
+			break;
+		size++;
+	}
+	return size;
+}
+
+
+#ifdef TEST
+void test_graph(char *str) {
+	printf("Input graph: %s\n", str);
+
+	enum connection edges[MAX_GRAPH_SIZE][MAX_GRAPH_SIZE];
+	construct_edges_from_str(str, edges);
+
+	int size = define_graph_size_by_edges(edges);
+
 
 	debug("Creating graph from edges provided by str %s", str);
 	Graph graph;
 	create_graph(&graph, size, edges);
+
+	print_adjacency_matrix(&graph);
 
 	bool is_connected = nodes_connected(&graph, 5, 7);
 	debug("Nodes 5-7 connected? Result: %d", is_connected);
@@ -244,6 +290,9 @@ void test_graph(char *str) {
 	for (int i = 0; i < found_amount; i++) {
 		printf("%d ", adjacent_nodes[i]);
 	} printf("\n");
+
+	remove_edge_between(&graph, 0, 1);
+	print_adjacency_matrix(&graph);
 }
 
 int main(void) {
@@ -254,8 +303,8 @@ int main(void) {
 
 	debug("Testing first string");
 	test_graph(input_str1);
-	debug("Testing second string");
-	test_graph(input_str2);
+//	debug("Testing second string");
+//	test_graph(input_str2);
 
 	return 0;
 }
